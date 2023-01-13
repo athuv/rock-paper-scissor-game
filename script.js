@@ -1,8 +1,8 @@
 let playerChoice;
 let computerChoice;
-
-
-playerChoice = prompt("Please Enter Your Choice (Rock, Paper or Scissor").toLowerCase();
+let playedRounds = 0;
+let playerScore = 0;
+let computerScore = 0;
 
 function computerSelection(){
     const selections = ["rock","paper","scissor"];
@@ -10,5 +10,28 @@ function computerSelection(){
     return selections[randomSelection];
 }
 
-computerChoice = computerSelection();
-console.log(`${playerChoice} ${computerChoice}`);
+function playRound() {
+    
+    playerChoice = prompt("Please Enter Your Choice (Rock, Paper or Scissor").toLowerCase();
+    computerChoice = computerSelection();
+    
+    //Round ties
+    if(playerChoice === computerChoice){
+       return roundResult = `Tied ${playerChoice} - ${computerChoice}`;
+
+       //Chances of player winning
+    }else if(playerChoice === 'rock' && computerChoice === 'scissor' || 
+        playerChoice === 'paper' && computerChoice === 'rock' ||
+        playerChoice === 'scissor' && computerChoice === 'paper') {
+
+        playerScore ++;
+        return `You Won! Your Score: ${playerScore} You Chose: ${playerChoice} - Computer Chose: ${computerChoice} Computer Score: ${computerScore}`;
+
+    }else{
+
+        computerScore ++;
+        return `You Lost! Your Score: ${playerScore} You Chose: ${playerChoice} - Computer Chose: ${computerChoice} Computer Score: ${computerScore}`;
+    }
+}
+
+console.log(playRound());
