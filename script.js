@@ -52,7 +52,6 @@ function validatePlayerChoice(){
 }
 
 function playRounds(){
-
     for (let i = 1; i <= 5; i++) {
         if(validatePlayerChoice()){
             console.log(compareSelections()); 
@@ -67,8 +66,10 @@ function playRounds(){
 
 function matchWinner(){
     if(playerScore > computerScore){
-        return "You Won! :) The Overall Match";
-    }else if(playerScore < computerScore){
+        return `You Won! :), The Match With ${playerScore} Points` ;
+    }else if(playerScore == computerScore){
+        return `Match Tied! :), You Both Scored ${playerScore} Points` ;
+    }else{
         return "You Lost! :( The Overall Match";
     }
 }
