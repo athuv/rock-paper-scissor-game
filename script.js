@@ -2,6 +2,7 @@ let playerChoice;
 let computerChoice;
 let playerScore = 0;
 let computerScore = 0;
+let playedRounds = 1;
 let isValid = true;
 
 
@@ -17,7 +18,7 @@ function compareSelections() {
     
     //Round ties
     if(playerChoice === computerChoice){
-       return roundResult = `Tied ${playerChoice} - ${computerChoice}`;
+        console.log(`%c------------------\nRound ${playedRounds}-\nYour Choice: ${playerChoice.toUpperCase()}\nComputer Choice: ${computerChoice.toUpperCase()}\n${playerChoice.toUpperCase()} Ties ${computerChoice.toUpperCase()}\nYour Score: ${playerScore}\nComputer Score: ${computerScore}\n~~~~~TIED~~~~~`,'color:brown; font-size: 15px');
 
        //Chances of player winning
     }else if(playerChoice === 'rock' && computerChoice === 'scissor' || 
@@ -25,12 +26,12 @@ function compareSelections() {
         playerChoice === 'scissor' && computerChoice === 'paper') {
 
         playerScore ++;
-        return `You Won! Your Score: ${playerScore} You Chose: ${playerChoice} - Computer Chose: ${computerChoice} Computer Score: ${computerScore}`;
+        console.log(`%c------------------\nRound ${playedRounds}-\nYour Choice: ${playerChoice.toUpperCase()}\nComputer Choice: ${computerChoice.toUpperCase()}\n${playerChoice.toUpperCase()} Beats ${computerChoice.toUpperCase()}\nYour Score: ${playerScore}\nComputer Score: ${computerScore}\n~~~~~YOU WON~~~~~`,'color:green; font-size: 15px');
 
     }else{
 
         computerScore ++;
-        return `You Lost! Your Score: ${playerScore} You Chose: ${playerChoice} - Computer Chose: ${computerChoice} Computer Score: ${computerScore}`;
+        console.log(`%c------------------\nRound ${playedRounds}-\nYour Choice: ${playerChoice.toUpperCase()}\nComputer Choice: ${computerChoice.toUpperCase()}\n${playerChoice.toUpperCase()} Beats ${computerChoice.toUpperCase()}\nYour Score: ${playerScore}\nComputer Score: ${computerScore}\n~~~~~YOU LOST~~~~~`,'color:red; font-size: 15px');
     }
 }
 
@@ -54,7 +55,9 @@ function validatePlayerChoice(){
 function playRounds(){
     for (let i = 1; i <= 5; i++) {
         if(validatePlayerChoice()){
-            console.log(compareSelections()); 
+            playedRounds = i;
+            compareSelections(); 
+            
             if(i == 5){
                 console.log(matchWinner());
             }
@@ -66,16 +69,12 @@ function playRounds(){
 
 function matchWinner(){
     if(playerScore > computerScore){
-        return `You Won! :), The Match With ${playerScore} Points` ;
+        console.log(`%c------------------\nYour Score: ${playerScore}\nComputer Score: ${computerScore}\n~~~~~YOU WON THE MATCH~~~~~`,'color:green; font-size: 15px');
     }else if(playerScore == computerScore){
-        return `Match Tied! :), You Both Scored ${playerScore} Points` ;
+        console.log(`%c------------------\nYour Score: ${playerScore}\nComputer Score: ${computerScore}\n~~~~~MATCH TIED~~~~~`,'color:brown; font-size: 15px');
     }else{
-        return "You Lost! :( The Overall Match";
+        console.log(`%c------------------\nYour Score: ${playerScore}\nComputer Score: ${computerScore}\n~~~~~YOU LOST THE MATCH~~~~~`,'color:red; font-size: 15px');
     }
 }
 
-console.log(playRounds());
-
-
-
-
+playRounds();
