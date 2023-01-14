@@ -1,8 +1,9 @@
 let playerChoice;
 let computerChoice;
-let playedRounds = 0;
 let playerScore = 0;
 let computerScore = 0;
+let isValid = true;
+
 
 function computerSelection(){
     const selections = ["rock","paper","scissor"];
@@ -10,9 +11,8 @@ function computerSelection(){
     return selections[randomSelection];
 }
 
-function playRound() {
+function compareSelections() {
     
-    playerChoice = prompt("Please Enter Your Choice (Rock, Paper or Scissor").toLowerCase();
     computerChoice = computerSelection();
     
     //Round ties
@@ -34,4 +34,47 @@ function playRound() {
     }
 }
 
-console.log(playRound());
+function validatePlayerChoice(){
+
+    if(isValid === true){
+        playerChoice = prompt("Please Enter Your Choice - Rock, Paper or Scissor").toLowerCase();
+    }else{
+        playerChoice = prompt("Wrong Choice! Please Select Any of The Three - Rock, Paper or Scissor").toLowerCase();
+    }
+
+    if(playerChoice !== 'rock' && playerChoice !== 'scissor' && playerChoice !== 'paper') {
+        isValid = false;
+        return false;
+    }else {    
+        isValid = true;
+        return true;
+    }
+}
+
+function playRounds(){
+
+    for (let i = 1; i <= 5; i++) {
+        if(validatePlayerChoice()){
+            console.log(compareSelections()); 
+            if(i == 5){
+                console.log(matchWinner());
+            }
+        }else{
+            i--;
+        }
+    }
+}
+
+function matchWinner(){
+    if(playerScore > computerScore){
+        return "You Won! :) The Overall Match";
+    }else if(playerScore < computerScore){
+        return "You Lost! :( The Overall Match";
+    }
+}
+
+console.log(playRounds());
+
+
+
+
