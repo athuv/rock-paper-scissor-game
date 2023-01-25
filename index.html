@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./script.js" defer></script>
     <link rel="stylesheet" href="./style.css" >
+    <link rel="shortcut icon" href="#" />
     <title>Document</title>
 </head>
 <body>
@@ -16,25 +17,36 @@
     </header>
     <main>
         <div class="main-header">
-            
-            <h3>First To Score 3 Wins</h3>
+            <h3 id="results">First To Score 3 Wins</h3>
+            <h4 id="results-description"></h4>
         </div>
         <div class="score-container">
             <div class="score-board player-score-board">
-                <span class="sign">&#x1F60A</span>
-                <p>Player: <span class="player-score">0</span></p>
+                <span id="player-sign" class="sign">&#x1F60A</span>
+                <p>Player: <span id="player-score" class="player-score">0</span></p>
             </div>
             <div class="score-board computer-score-board">
-                <span class="sign">&#x1F916</span>
-                <p>Computer: <span class="computer-score">0</span></p>
+                <span id="computer-sign" class="sign">&#x1F916</span>
+                <p>Computer: <span id="computer-score" class="computer-score">0</span></p>
             </div>
         </div>
         <div class="buttons">
-            <button>&#x1F44A</button>
-            <button>&#x270B</button>
-            <button>&#x1F594</button>
+            <button value="rock">&#x1F44A</button>
+            <button value="paper">&#x270B</button>
+            <button value="scissor">&#x1F594</button>
         </div>
+
+
+
     </main>
+        <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <p id="play-again"></p>
+            <button  value="play-again">Play Again</button>
+        </div>  
+    </div>
     <footer>
 
     </footer>
