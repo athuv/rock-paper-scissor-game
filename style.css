@@ -137,4 +137,7 @@ header {
 footer {
     height: 50px;
     background-color: #274472;
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }

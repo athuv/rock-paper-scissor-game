@@ -1,10 +1,62 @@
 let playerChoice;
 let computerChoice;
+let playedRounds = 0;
 let playerScore = 0;
 let computerScore = 0;
-let playedRounds = 1;
-let isValid = true;
 
+const modal = document.getElementById("modalPlayAgain");
+const btn = document.querySelectorAll('button');
+
+btn.forEach(function(button) {    
+    button.addEventListener("click", playRounds);     
+});
+
+function playRounds(){
+    if(this.value == 'play-again'){
+        location.reload();
+        return;
+    }
+
+        if(playerScore < 5 && computerScore < 5){
+        computerChoice = computerSelection();
+        playerChoice = this.value;        
+        setSign(playerChoice, computerChoice);
+
+            if(playerChoice === computerChoice){
+                playedRounds -= 1;
+                document.getElementById('results').innerText = 'Tied!';
+                document.getElementById('results-description').innerText = `Tied`;
+                //Chances of player winning
+            }else if(playerChoice === 'rock' && computerChoice === 'scissor' || 
+            playerChoice === 'paper' && computerChoice === 'rock' ||
+            playerChoice === 'scissor' && computerChoice === 'paper'){
+    
+                playerScore ++;
+                document.getElementById('player-score').innerText = `${playerScore}`;
+                document.getElementById('computer-score').innerText = `${computerScore}`;
+                document.getElementById('results').innerText = `You Won`;
+                document.getElementById('results-description').innerText = `${capitalizeFirstLetter(playerChoice)} beats ${capitalizeFirstLetter(computerChoice)}`;
+                document.getElementById('play-again').innerText = `You Won!`;                
+
+            }else{
+                computerScore ++;
+                document.getElementById('player-score').innerText = `${playerScore}`;
+                document.getElementById('computer-score').innerText = `${computerScore}`;
+                document.getElementById('results').innerText = `You Lost`;
+                document.getElementById('results-description').innerText = `${capitalizeFirstLetter(computerChoice)} beats ${capitalizeFirstLetter(playerChoice)}`;
+                document.getElementById('play-again').innerText = `You Lost!`;
+            }
+
+            if(playerScore == 5){
+                modal.style.display = "block";
+            }else if (computerScore == 5){
+                modal.style.display = "block";
+            }
+
+        }else{
+            modal.style.display = "block";
+        }
+}
 
 function computerSelection(){
     const selections = ["rock","paper","scissor"];
@@ -12,69 +64,34 @@ function computerSelection(){
     return selections[randomSelection];
 }
 
-function compareSelections() {
-    
-    computerChoice = computerSelection();
-    
-    //Round ties
-    if(playerChoice === computerChoice){
-        console.log(`%c------------------\nRound ${playedRounds}-\nYour Choice: ${playerChoice.toUpperCase()}\nComputer Choice: ${computerChoice.toUpperCase()}\n${playerChoice.toUpperCase()} Ties ${computerChoice.toUpperCase()}\nYour Score: ${playerScore}\nComputer Score: ${computerScore}\n~~~~~TIED~~~~~`,'color:brown; font-size: 15px');
-
-       //Chances of player winning
-    }else if(playerChoice === 'rock' && computerChoice === 'scissor' || 
-        playerChoice === 'paper' && computerChoice === 'rock' ||
-        playerChoice === 'scissor' && computerChoice === 'paper') {
-
-        playerScore ++;
-        console.log(`%c------------------\nRound ${playedRounds}-\nYour Choice: ${playerChoice.toUpperCase()}\nComputer Choice: ${computerChoice.toUpperCase()}\n${playerChoice.toUpperCase()} Beats ${computerChoice.toUpperCase()}\nYour Score: ${playerScore}\nComputer Score: ${computerScore}\n~~~~~YOU WON~~~~~`,'color:green; font-size: 15px');
-
+function setSign(playerSign, computerSign){
+    if(playerSign === 'rock'){ //&#x1F44A Rock &#x270B Paper &#x1F594 Scissor
+        document.getElementById('player-sign').innerText = String.fromCodePoint(0x1F44A);
+    }else if(playerSign === 'paper'){
+        document.getElementById('player-sign').innerText = String.fromCodePoint(0x270B);
+    }else if(playerSign === 'scissor'){
+        document.getElementById('player-sign').innerText = String.fromCodePoint(0x1F594);
     }else{
-
-        computerScore ++;
-        console.log(`%c------------------\nRound ${playedRounds}-\nYour Choice: ${playerChoice.toUpperCase()}\nComputer Choice: ${computerChoice.toUpperCase()}\n${playerChoice.toUpperCase()} Beats ${computerChoice.toUpperCase()}\nYour Score: ${playerScore}\nComputer Score: ${computerScore}\n~~~~~YOU LOST~~~~~`,'color:red; font-size: 15px');
+        document.getElementById('player-sign').innerText = String.fromCodePoint(0x1F914);
     }
-}
 
-function validatePlayerChoice(){
-
-    if(isValid === true){
-        playerChoice = prompt("Please Enter Your Choice - Rock, Paper or Scissor").toLowerCase();
+    if(computerSign === 'rock'){ //&#x1F44A Rock &#x270B Paper &#x1F594 Scissor
+        document.getElementById('computer-sign').innerText = String.fromCodePoint(0x1F44A);
+    }else if(computerSign === 'paper'){
+        document.getElementById('computer-sign').innerText = String.fromCodePoint(0x270B);
+    }else if(computerSign === 'scissor'){
+        document.getElementById('computer-sign').innerText = String.fromCodePoint(0x1F594);
     }else{
-        playerChoice = prompt("Wrong Choice! Please Select Any of The Three - Rock, Paper or Scissor").toLowerCase();
+        document.getElementById('computer-sign').innerText = String.fromCodePoint(0x1F914);
     }
+} 
 
-    if(playerChoice !== 'rock' && playerChoice !== 'scissor' && playerChoice !== 'paper') {
-        isValid = false;
-        return false;
-    }else {    
-        isValid = true;
-        return true;
-    }
+function capitalizeFirstLetter(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
-function playRounds(){
-    for (let i = 1; i <= 5; i++) {
-        if(validatePlayerChoice()){
-            playedRounds = i;
-            compareSelections(); 
-            
-            if(i == 5){
-                console.log(matchWinner());
-            }
-        }else{
-            i--;
-        }
+window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
     }
 }
-
-function matchWinner(){
-    if(playerScore > computerScore){
-        console.log(`%c------------------\nYour Score: ${playerScore}\nComputer Score: ${computerScore}\n~~~~~YOU WON THE MATCH~~~~~`,'color:green; font-size: 15px');
-    }else if(playerScore == computerScore){
-        console.log(`%c------------------\nYour Score: ${playerScore}\nComputer Score: ${computerScore}\n~~~~~MATCH TIED~~~~~`,'color:brown; font-size: 15px');
-    }else{
-        console.log(`%c------------------\nYour Score: ${playerScore}\nComputer Score: ${computerScore}\n~~~~~YOU LOST THE MATCH~~~~~`,'color:red; font-size: 15px');
-    }
-}
-
-playRounds();
